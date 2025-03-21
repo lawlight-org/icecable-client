@@ -1,0 +1,107 @@
+@font-face {
+  font-family: 'CreatoDisplay';
+  src: url('/fonts/CreatoDisplay-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CreatoDisplay';
+  src: url('/fonts/CreatoDisplay-BlackItalic.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'CreatoDisplay';
+  src: url('/fonts/CreatoDisplay-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CreatoDisplay';
+  src: url('/fonts/CreatoDisplay-BoldItalic.otf') format('opentype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'CreatoDisplay';
+  src: url('/fonts/CreatoDisplay-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CreatoDisplay';
+  src: url('/fonts/CreatoDisplay-ExtraBoldItalic.otf') format('opentype');
+  font-weight: 800;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'CreatoDisplay';
+  src: url('/fonts/CreatoDisplay-Light.otf') format('opentype');
+  font-weight: lighter;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CreatoDisplay';
+  src: url('/fonts/CreatoDisplay-LightItalic.otf') format('opentype');
+  font-weight: lighter;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'CreatoDisplay';
+  src: url('/fonts/CreatoDisplay-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CreatoDisplay';
+  src: url('/fonts/CreatoDisplay-MediumItalic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'CreatoDisplay';
+  src: url('/fonts/CreatoDisplay-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CreatoDisplay';
+  src: url('/fonts/CreatoDisplay-RegularItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'CreatoDisplay';
+  src: url('/fonts/CreatoDisplay-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CreatoDisplay';
+  src: url('/fonts/CreatoDisplay-ThinItalic.otf') format('opentype');
+  font-weight: 100;
+  font-style: italic;
+}
+
+body {
+  font-family: 'CreatoDisplay', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  color-scheme: dark;
+  background: #111;
+  color: #eee;
+}
