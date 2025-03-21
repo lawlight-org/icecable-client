@@ -1,4 +1,4 @@
-# 🧊 IceCable - The most secure instant messaging app 🔒
+# 🧊 IceCable - Most secure instant messaging app 🔒
 
 This is the client for IceCable, an instant messaging app focused on privacy and security.
 
@@ -46,4 +46,3 @@ The production build will be in the `dist` folder.
 
 ## License
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
-```
