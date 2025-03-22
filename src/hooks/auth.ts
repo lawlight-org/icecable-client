@@ -101,7 +101,6 @@ export function useAuth() {
   }
 
   async function validateSession(): Promise<void> {
-    console.log(token, await fetchUser(token!))
     if (token && !await fetchUser(token)) {
       destroySession();
       navigate("/login");
