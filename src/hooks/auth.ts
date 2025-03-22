@@ -79,6 +79,7 @@ export function useAuth() {
   }
 
   async function fetchUser(token: string): Promise<boolean> {
+    if (!token) return false;
     try {
       const res = await POST("auth/me", { token });
       if (res.status !== 200) return false;
