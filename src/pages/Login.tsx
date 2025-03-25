@@ -2,14 +2,13 @@ import "./Login.css";
 import { useAuth } from "../hooks/auth";
 import { useState } from "react";
 import { ChangeEvent, FormEvent } from "react";
-import { validatePassword, validateUsername } from "../validators/accounts";
+import {
+  validateForm,
+  validatePassword,
+  validateUsername,
+} from "../validators/accounts";
 import { useNavigate } from "react-router-dom";
-
-type FormFields = {
-  username: string;
-  password: string;
-  confirmPassword: string;
-}
+import { AuthFormFields } from "../types/AuthFormFields";
 
 export default function Login() {
   const { token, createAccount, createGuest, login } = useAuth();
@@ -17,18 +16,36 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  const [formFields, setFormFields] = useState<FormFields>({
-    username: "",
-    password: "",
-    confirmPassword: "",
+  const [formFields, setFormFields] = useState<AuthFormFields>({
+    username: {
+      value: "",
+      type: "text",
+      label: "Username",
+      error: "",
+    },
+    password: {
+      value: "",
+      type: "password",
+      label: "Password",
+      error: "",
+    },
+    confirmPassword: {
+      value: "",
+      type: "password",
+      label: "Confirm Password",
+      error: "",
+    },
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormFields({
-      ...formFields,
-      [e.target.name]: e.target.value,
-    });
-  }
+    setFormFields((prev) => ({
+      ...prev,
+      [e.target.name]: {
+        ...prev[e.target.name as keyof AuthFormFields],
+        value: e.target.value,
+      },
+    }));
+  };
 
   const [isRegister, setIsRegister] = useState<boolean>(true);
 
@@ -41,26 +58,42 @@ export default function Login() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(formFields);
 
-    if (!validateUsername(formFields.username)) {
-      setError("Invalid username");
+    const errors = validateForm(formFields, isRegister);
+    if (errors.length > 0) {
+      if (errors.field === "general") {
+        setError(errors.error);
+        return;
+      }
+
+      setFormFields((prev) => {
+        console.log(prev)
+        Object.values(prev).map(field => { field.error=""; });
+
+        return {
+          ...prev,
+          [errors.field]: {
+            ...prev[errors.field as keyof AuthFormFields],
+            error: errors.error,
+          },
+        };
+      });
       return;
     }
 
     if (isRegister) {
-      if (!validatePassword(formFields.password, formFields.confirmPassword)) {
-        setError("Password too short or passwords do not match");
-        return;
-      }
-
-      const res = await createAccount(formFields.username, formFields.password);
+      const res = await createAccount(
+        formFields.username.value,
+        formFields.password.value
+      );
       if (!res) {
         setError("Failed to register, please try again");
         return;
       }
     }
 
-    if (await login(formFields.username, formFields.password)) {
+    if (await login(formFields.username.value, formFields.password.value)) {
       navigate("/");
     }
   };
@@ -70,37 +103,30 @@ export default function Login() {
       <p>IceCable</p>
 
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={formFields.username}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formFields.password}
-          onChange={handleChange}
-        />
+        {Object.keys(formFields).map((key) => {
+          if (!isRegister && key === "confirmPassword") {
+            return null;
+          }
 
-        {isRegister && (
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            value={formFields.confirmPassword}
-            onChange={handleChange}
-          />
-        )}
+          const value = formFields[key as keyof AuthFormFields];
 
-        <button type="submit">
-          {isRegister ? "Register" : "Login"}
-        </button>
+          return (
+            <div key={key}>
+              <input
+                type={value.type}
+                name={key}
+                placeholder={value.label}
+                value={value.value}
+                onChange={handleChange}
+              />
+              {value.error && <p>{value.error}</p>}
+            </div>
+          );
+        })}
 
-        {error && <p>{error}</p>}
+        <button type="submit">{isRegister ? "Register" : "Login"}</button>
       </form>
+      {error && <p>{error}</p>}
 
       <button onClick={handleGuest}>Continue as guest</button>
 

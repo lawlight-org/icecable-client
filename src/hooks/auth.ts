@@ -102,7 +102,7 @@ export function useAuth() {
   }
 
   async function validateSession(): Promise<void> {
-    if (token && !await fetchUser(token)) {
+    if (!token || (token && !await fetchUser(token))) {
       destroySession();
       navigate("/login");
     }
