@@ -15,7 +15,7 @@ export function validateForm(
     general: "",
     username: "",
     password: "",
-    confirmPassword: "",
+    confirmPassword: ""
   };
 
   if (
@@ -23,14 +23,16 @@ export function validateForm(
     !formFields.password.value ||
     (isRegister && !formFields.confirmPassword.value)
   ) {
-    errors.general = "Please fill out all the fields.";
+    errors.general = "Please fill out all the fields."
   }
 
   if (!validateUsername(formFields.username.value)) {
     errors.username = "Invalid username";
   }
 
-  if (formFields.password.value.length < 8) {
+  if (
+    formFields.password.value.length < 8
+  ) {
     errors.password = "Password has to be minimum 8 charaters long";
   }
 

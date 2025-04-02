@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { POST } from "../api/api";
+import { GET, POST } from "../api/api";
 import { generateKeyPair, randomHex, sha256 } from "../utils/crypto";
 import { ApiResponseLogin } from "../types/ApiResponseLogin";
 import { User } from "../types/User";
@@ -78,10 +78,10 @@ export function useAuth() {
     }
   }
 
-  async function fetchUser(token: string): Promise<boolean> {
+  async function fetchUser(): Promise<boolean> {
     if (!token) return false;
     try {
-      const res = await POST("auth/me", { token });
+      const res = await GET("auth/me");
       if (res.status !== 200) return false;
 
       const remoteUser: User = await res.json();
@@ -102,7 +102,7 @@ export function useAuth() {
   }
 
   async function validateSession(): Promise<void> {
-    if (!token || (token && !await fetchUser(token))) {
+    if (!token || (token && !await fetchUser())) {
       destroySession();
       navigate("/login");
     }

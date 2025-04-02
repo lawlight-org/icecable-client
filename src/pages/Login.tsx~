@@ -70,6 +70,7 @@ export default function Login() {
         }
 
         const formField = prev[field as keyof AuthFormFields];
+        console.log(formField, error, field);
         if (formField && typeof formField !== "string")
           formField.error = error;
       }
